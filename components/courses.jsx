@@ -90,71 +90,100 @@ export default function Courses() {
 */
 
 const addCourse = () => {
-  const [id, setId] = React.useState('test1000');
-  const [name, setName] = React.useState('testingprogram');
-  const [description, setDescription] = React.useState('testingcomputerprogramdefined');
+  const [id, setId] = React.useState("test1000");
+  const [name, setName] = React.useState("testingprogram");
+  const [description, setDescription] = React.useState(
+    "testingcomputerprogramdefined"
+  );
+  const [course, setCourse] = React.useState();
 
-  function insertData(input_id, input_name, input_description){
-
+  function insertData() {
     let url = "https://se-api-demo.uc.r.appspot.com/courses/";
+    let testurl = "https://excerise.uc.r.appspot.com/courses";
 
-
-    fetch(url, {
-      method: 'post',
+    fetch(testurl, {
+      method: "POST",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
       body: JSON.stringify({
-        "course_id":input_id,
-        "course_name":input_name,
-        "description":input_description,
-      })
-    })
-    .catch(function (error) {
+        id: id,
+        name: name,
+        description: description,
+      }),
+    }).catch(function (error) {
       console.log(error);
     });
- }
+  }
 
-  return ( 
+  const getCourses = () => {
+    const url = "https://excerise.uc.r.appspot.com/courses";
+    fetch(url)
+      .then((resp) => resp.json())
+      .then((data) => displayallCourses(data));
+  };
+
+  const displayallCourses = (data) => {
+    let allCourses = "";
+    data.forEach((course) => {
+      allCourses += course.course_id += course.course_name +=
+        course.description;
+      setCourse(allCourses);
+    });
+  };
+
+  return (
     <View style={styles.container}>
-
-    <Text style={{textAlign: "center", marginBottom: 15,fontSize: 20, fontWeight:"bolder"}}> New Course Form </Text>
-    <Text style={{marginBottom: 10, fontWeight:"bolder"}}>Course ID</Text>
-      <TextInput 
+      <Text
+        style={{
+          textAlign: "center",
+          marginBottom: 15,
+          fontSize: 20,
+          fontWeight: "bolder",
+        }}
+      >
+        {" "}
+        New Course Form{" "}
+      </Text>
+      <Text style={{ marginBottom: 10, fontWeight: "bolder" }}>Course ID</Text>
+      <TextInput
         style={styles.text}
         placeholder="Enter course ID"
         value={id}
         onChangeText={(text) => setId(text)}
-        
       />
-      <Text style={{marginBottom: 10, fontWeight:"bolder"}}>Course Name</Text>
+      <Text style={{ marginBottom: 10, fontWeight: "bolder" }}>
+        Course Name
+      </Text>
       <TextInput
         style={styles.text}
         placeholder="Enter course name"
         value={name}
         onChangeText={(text) => setName(text)}
-        
       />
-      <Text style={{marginBottom: 10, fontWeight:"bolder"}}>Description</Text>
+      <Text style={{ marginBottom: 10, fontWeight: "bolder" }}>
+        Description
+      </Text>
       <TextInput
         style={styles.text}
         placeholder="Enter course description"
         value={description}
         onChangeText={(text) => setDescription(text)}
-        
       />
-      <Button title="Add Course" onPress={() => {
-        insertData(id, name, description)
-      }}/>
+      <Button
+        title="Add Course"
+        onPress={() => {
+          insertData();
+        }}
+      />
       <Text>ID: {id}</Text>
       <Text>Name: {name}</Text>
       <Text>Description: {description} </Text>
-
+      <Button title="Get Courses" onPress={() => getCourses()} />
+      <Text>{course}</Text>
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
