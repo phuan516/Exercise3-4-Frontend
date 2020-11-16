@@ -98,10 +98,11 @@ const addCourse = () => {
   const [course, setCourse] = React.useState();
 
   function insertData() {
+    const proxy = "https://cors-anywhere.herokuapp.com/";
     let url = "https://se-api-demo.uc.r.appspot.com/courses/";
     let testurl = "https://excerise.uc.r.appspot.com/courses";
 
-    fetch(testurl, {
+    fetch(proxy + testurl, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -117,8 +118,9 @@ const addCourse = () => {
   }
 
   const getCourses = () => {
+    const proxy = "https://cors-anywhere.herokuapp.com/";
     const url = "https://excerise.uc.r.appspot.com/courses";
-    fetch(url)
+    fetch(proxy + url)
       .then((resp) => resp.json())
       .then((data) => displayallCourses(data));
   };
