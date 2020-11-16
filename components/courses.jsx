@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 // You can import from local files
 
 // or any pure javascript modules available in npm
-
+/*
 export default function Courses() {
   const [course, setCourse] = React.useState();
   const [id, setId] = React.useState();
@@ -13,6 +13,7 @@ export default function Courses() {
   const [description, setDescription] = React.useState();
   const [changeId, setChangeId] = React.useState();
   const [newDescription, setNewDescription] = React.useState();
+
 
   const getCourses = () => {
     const url = "https://excerise.uc.r.appspot.com/courses";
@@ -36,6 +37,7 @@ export default function Courses() {
 
   return (
     <View style={styles.container}>
+    
       <Button title="Get Courses" onPress={() => getCourses()} />
       <Text>{course}</Text>
       <Text>Course Id</Text>
@@ -44,7 +46,13 @@ export default function Courses() {
         onChangeText={(text) => setId(text)}
         value={id}
       />
-
+      
+      <Text>Course ID</Text>
+      <TextInput
+        style={styles.text}
+        onChangeText={(text) => setId(text)}
+        value={id}
+      />
       <Text>Course Name</Text>
       <TextInput
         style={styles.text}
@@ -79,6 +87,74 @@ export default function Courses() {
     </View>
   );
 }
+*/
+
+const addCourse = () => {
+  const [id, setId] = React.useState('test1000');
+  const [name, setName] = React.useState('testingprogram');
+  const [description, setDescription] = React.useState('testingcomputerprogramdefined');
+
+  function insertData(input_id, input_name, input_description){
+
+    let url = "https://se-api-demo.uc.r.appspot.com/courses/";
+
+
+    fetch(url, {
+      method: 'post',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        "course_id":input_id,
+        "course_name":input_name,
+        "description":input_description,
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+ }
+
+  return ( 
+    <View style={styles.container}>
+
+    <Text style={{textAlign: "center", marginBottom: 15,fontSize: 20, fontWeight:"bolder"}}> New Course Form </Text>
+    <Text style={{marginBottom: 10, fontWeight:"bolder"}}>Course ID</Text>
+      <TextInput 
+        style={styles.text}
+        placeholder="Enter course ID"
+        value={id}
+        onChangeText={(text) => setId(text)}
+        
+      />
+      <Text style={{marginBottom: 10, fontWeight:"bolder"}}>Course Name</Text>
+      <TextInput
+        style={styles.text}
+        placeholder="Enter course name"
+        value={name}
+        onChangeText={(text) => setName(text)}
+        
+      />
+      <Text style={{marginBottom: 10, fontWeight:"bolder"}}>Description</Text>
+      <TextInput
+        style={styles.text}
+        placeholder="Enter course description"
+        value={description}
+        onChangeText={(text) => setDescription(text)}
+        
+      />
+      <Button title="Add Course" onPress={() => {
+        insertData(id, name, description)
+      }}/>
+      <Text>ID: {id}</Text>
+      <Text>Name: {name}</Text>
+      <Text>Description: {description} </Text>
+
+    </View>
+  );
+};
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -92,5 +168,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
+    marginBottom: 10,
   },
 });
+
+export default addCourse;
