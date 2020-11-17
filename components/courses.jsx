@@ -30,20 +30,9 @@ const addCourse = () => {
     });
   }
 
-
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          textAlign: "center",
-          marginBottom: 15,
-          fontSize: 30,
-          fontWeight: "bolder",
-        }}
-      >
-        {" "}
-        New Course Form{" "}
-      </Text>
+      <Text style={styles.headerText}> New Course Form </Text>
       <Text style={{ marginBottom: 10, fontWeight: "bolder" }}>Course ID</Text>
       <TextInput
         style={styles.text}
@@ -73,17 +62,16 @@ const addCourse = () => {
         title="Add Course"
         onPress={() => {
           if (id == "" || name == "") {
-            alert("Course ID and course name have to be included")
+            alert("Course ID and course name have to be included");
           } else {
             insertData();
-            alert("Course added succesfully!")
+            alert("Course added succesfully!");
           }
         }}
       />
-      <Text style={{ marginTop: 10, marginBottom: 10, fontWeight: "bolder" }}>ID: {id}</Text>
-      <Text style={{ marginBottom: 10, fontWeight: "bolder" }}>Name: {name}</Text>
-      <Text style={{ marginBottom: 10, fontWeight: "bolder" }}>Description: {description} </Text>
-      
+      <Text style={{ marginTop: 10, marginBottom: 10 }}>ID: {id}</Text>
+      <Text style={{ marginBottom: 10 }}>Name: {name}</Text>
+      <Text style={{ marginBottom: 10 }}>Description: {description} </Text>
     </View>
   );
 };
@@ -91,7 +79,7 @@ const addCourse = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "20%",
+    width: "100%",
     justifyContent: "center",
     paddingTop: Constants.statusBarHeight,
     padding: 8,
@@ -102,6 +90,11 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 10,
+  },
+  headerText: {
+    textAlign: "center",
+    marginBottom: 15,
+    fontSize: 30,
   },
 });
 
